@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import Nav from "./components/nav";
+import axios from "axios";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import { Topic } from "./components/topicSection/topic";
+import Search from "./components/searchSection";
+import SearchForm from "./components/searchForm";
+import HomeSection from "./components/homeSection";
 
-function App() {
+const App = () => {
+  const [listTopics, setListTopics] = useState([]);
+
+  useEffect(() => {
+    getListTopic();
+    // console.log(listTopics);
+  }, []);
+
+  const getListTopic = async () => {
+    const res = await axios({
+      method: "GET",
+      url: "https://api.unsplash.com/topics?client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg",
+      params: { page: 1, per_page : 21},
+    });
+    setListTopics(res.data);
+
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <Header /> */}
+      <Nav listTopics={listTopics}/>
+      <BrowserRouter>
+        <SearchForm />
+        <Routes>
+          <Route path="/" element={<HomeSection />} />
+          <Route path="/photos/:photoName" element={<Search/>} />
+          <Route path="/topic/:topicId" element={<Topic />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
