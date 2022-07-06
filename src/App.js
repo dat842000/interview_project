@@ -36,9 +36,9 @@ const App = () => {
       <BrowserRouter>
         <SearchForm />
         <Routes>
-          <Route path="/" element={<HomeSection />} />
-          <Route path="/photos/:photoName" element={<Search/>} />
-          <Route path="/topic/:topicId" element={<Topic />} />
+          <Route exact path="/" element={<HomeSection />} />
+          <Route exact path="/photos/:photoName" element={<Search/>} />
+          <Route exact path="/topic/:topicId" element={<Topic />} />
         </Routes>
       </BrowserRouter>
     </div>
