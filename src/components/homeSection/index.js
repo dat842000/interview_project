@@ -1,39 +1,43 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import ImageSkeleton from "../../util/components/ImageSkeleton";
+import ImageSkeleton from "../ImageSkeleton";
+import useDataFetching from "../../util/components/UseDataFetch";
 
 const HomeSection = () => {
-  const [pageNumber, setPageNumber] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [photos, setPhotos] = useState([]);
-  const MAX_NUMBER_OF_RANDOM_PHOTO = 30
+  const CLIENT_ID = "wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg";
+  // const MAX_NUMBER_OF_RANDOM_PHOTO = 30
+  // const [pageNumber, setPageNumber] = useState(1);
+  // const [hasMore] = useState(true);
+  // const [photos, setPhotos] = useState([]);
+  const {results, hasMore, pageNumber} = useDataFetching(
+      `https://api.unsplash.com/photos/random?client_id=${CLIENT_ID}`
+    );
 
-  const getListPhoto = async () => {
-    var url =
-      "https://api.unsplash.com/photos/random?client_id=eW1tAaNr5ctrTmD7ZP86mibNpM6l9uLdUoqOOX3UffM";
-    const res = await axios({
-      method: "Get",
-      url: url,
-      params: { count: MAX_NUMBER_OF_RANDOM_PHOTO },
-    });
-    console.log(res.data)
-    setPhotos([...photos, ...res.data]);
-    setHasMore(res.data.length > 0);
-    setPageNumber(pageNumber + 1);
-  };
+  // const getListPhoto = async () => {
+  //   let url =
+  //     "https://api.unsplash.com/photos/random?client_id=eW1tAaNr5ctrTmD7ZP86mibNpM6l9uLdUoqOOX3UffM";
+  //   const res = await axios({
+  //     method: "Get",
+  //     url: url,
+  //     params: { count: MAX_NUMBER_OF_RANDOM_PHOTO },
+  //   });
+  //   setPhotos([...photos, ...res.data]);
+  //   setHasMore(res.data.length > 0);
+  //   setPageNumber(pageNumber + 1);
+  // };
 
-  useEffect(() => {
-    getListPhoto();
+  // useEffect(() => {
+  //   getListPhoto();
     
-  }, []);
+  // }, []);
 
   return (
     <>
       <div>
         <InfiniteScroll
-          dataLength={photos.length} //This is important field to render the next data
-          next={getListPhoto}
+          dataLength={results.length} //This is important field to render the next data
+          next={useDataFetching}
           hasMore={hasMore}
           loader={<ImageSkeleton quantity={6} />}
           endMessage={
@@ -43,7 +47,7 @@ const HomeSection = () => {
           }
         >
           <div className=" min-w-0  grid grid-cols-3 items-center">
-            {photos.map((item, index) => {
+            {results.map((item, index) => {
               return (
                 <img
                   key={index}

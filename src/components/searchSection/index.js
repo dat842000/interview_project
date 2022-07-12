@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import ImageSkeleton from "../../util/components/ImageSkeleton";
+import ImageSkeleton from "../ImageSkeleton";
+
 
 const Search = () => {
   const { photoName } = useParams();
@@ -17,7 +18,7 @@ const Search = () => {
       newPage = 1
       setPageNumber(newPage)
     }
-    var url =
+    let url =
       "https://api.unsplash.com/search/photos?query=" +
       photoName +
       "&client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg";
