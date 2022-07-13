@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 
-const SearchForm = () => {
+const SearchForm = props => {
   const navigate = useNavigate();
 
   const Search = (event) => {
@@ -14,7 +14,7 @@ const SearchForm = () => {
 
   return (
     <TextField
-      className="w-2/6 m-4"
+      className="w-full m-4 bg-white rounded"
       id="outlined-basic"
       label="Searching"
       variant="outlined"

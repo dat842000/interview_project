@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import topicsReducer from '../features/topics/topicSlice'
+import topicsReducer from './topics/topicSlice'
+import themeReducer from './theme/themeSlice'
 
 
 export default configureStore({
   reducer: {
     topics: topicsReducer,
+    theme: themeReducer,
   },
 })
