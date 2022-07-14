@@ -10,7 +10,7 @@ const Header = (props) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex justify-between items-center mx-4 my-2">
+    <div className="flex justify-between items-center mx-4 py-2">
       {/* <div className="w-[400px]">
         <SearchForm />
       </div> */}
