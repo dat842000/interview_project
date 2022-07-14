@@ -36,7 +36,7 @@ const Nav = (props) => {
       />
       <div
         id="slider"
-        className="w-full h-full overflow-x-scroll scroll-smooth  whitespace-nowrap "
+        className="w-full h-full overflow-hidden scroll-smooth  whitespace-nowrap "
       >
         {topics &&
           topics.length > 0 &&
